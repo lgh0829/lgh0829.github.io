@@ -8,9 +8,6 @@ tags: [Blogging]
 pin: false
 math: false
 mermaid: false
-image:
-  path: /_site/assets/img/posts/20190808/mockup.png
-  alt: Jekyll기반 Chirpy테마로 생성한 블로그 예시
 ---
 
 ## 비개발자인데 Github Pages와 Jekyll(지킬)로 블로그를 시작한 이유
