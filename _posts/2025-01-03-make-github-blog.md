@@ -9,7 +9,7 @@ pin: false
 math: false
 mermaid: false
 image:
-  path: /_site/assets/img/commons/devices-mockup.png
+  path: /_site/assets/img/posts/20190808/mockup.png
   alt: Jekyll기반 Chirpy테마로 생성한 블로그 예시
 ---
 
