@@ -1,0 +1,143 @@
+---
+import { stats, levels } from '../data/stats';
+import { caseTitle } from '../data/cases';
+
+const size = 420;
+const cx = size / 2;
+const cy = size / 2;
+const radius = 140;
+const max = levels.length;
+
+const point = (i: number, r: number) => {
+  const a = (Math.PI / 180) * (-90 + (360 / stats.length) * i);
+  return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+};
+const poly = (r: (i: number) => number) =>
+  stats.map((_, i) => point(i, r(i)).map((n) => n.toFixed(1)).join(',')).join(' ');
+
+const rings = levels.map((l) => poly(() => (radius * l.lv) / max));
+const shape = poly((i) => (radius * stats[i].level) / max);
+const labels = stats.map((s, i) => {
+  const [x, y] = point(i, radius + 30);
+  const anchor = Math.abs(x - cx) < 1 ? 'middle' : x > cx ? 'start' : 'end';
+  return { ...s, x, y, anchor };
+});
+const levelName = (lv: number) => levels.find((l) => l.lv === lv)?.name ?? '';
+---
+<div class="hex" data-hex>
+  <figure class="chart">
+    <svg viewBox={`-60 0 ${size + 120} ${size}`} role="img" aria-labelledby="hex-title">
+      <title id="hex-title">역량 육각형: {stats.map((s) => `${s.label} Lv${s.level}`).join(', ')}</title>
+      {rings.map((r) => <polygon points={r} class="ring" />)}
+      {stats.map((_, i) => {
+        const [x, y] = point(i, radius);
+        return <line x1={cx} y1={cy} x2={x} y2={y} class="ring" />;
+      })}
+      <polygon points={shape} class="shape" />
+      {stats.map((s, i) => {
+        const [x, y] = point(i, (radius * s.level) / max);
+        return <circle cx={x} cy={y} r="5" class="dot" />;
+      })}
+      {labels.map((l) => (
+        <text x={l.x} y={l.y} text-anchor={l.anchor} dominant-baseline="middle" class="label" data-key={l.key}>
+          {l.label} <tspan class="lv">Lv{l.level}</tspan>
+        </text>
+      ))}
+    </svg>
+  </figure>
+
+  <div class="detail">
+    <div class="tabs" role="tablist" aria-label="역량 선택">
+      {stats.map((s, i) => (
+        <button role="tab" type="button" data-key={s.key} aria-selected={i === 0 ? 'true' : 'false'}>
+          {s.label}
+        </button>
+      ))}
+    </div>
+    {stats.map((s, i) => (
+      <section class="panel card" role="tabpanel" data-panel={s.key} data-active={i === 0 ? 'true' : 'false'}>
+        <p class="panel-lv">Lv{s.level} · {levelName(s.level)}</p>
+        <h3>{s.label}</h3>
+        <p class="panel-summary">{s.summary}</p>
+        <ul>
+          {s.evidence.map((e) => <li>{e}</li>)}
+        </ul>
+        <p class="panel-next">다음 레벨 조건: {s.next}</p>
+        {s.cases.length > 0 && (
+          <p class="panel-cases">
+            관련 사례: {s.cases.map((c) => <a href={`/work/${c}/`}>{caseTitle(c)}</a>)}
+          </p>
+        )}
+      </section>
+    ))}
+  </div>
+</div>
+
+<details class="rubric">
+  <summary>점수는 어떻게 매겼나요?</summary>
+  <p>자기 평가 점수가 아니라, 검증된 근거가 있는 가장 높은 단계를 레벨로 표시합니다. 근거가 새로 생기면 레벨이 오릅니다.</p>
+  <table>
+    <thead><tr><th>레벨</th><th>기준</th></tr></thead>
+    <tbody>
+      {levels.map((l) => <tr><td>Lv{l.lv} {l.name}</td><td>{l.rule}</td></tr>)}
+    </tbody>
+  </table>
+</details>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hex]').forEach((root) => {
+    root.classList.add('js');
+    const select = (key: string) => {
+      root.querySelectorAll<HTMLElement>('[role="tab"]').forEach((t) =>
+        t.setAttribute('aria-selected', String(t.dataset.key === key)),
+      );
+      root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) =>
+        p.setAttribute('data-active', String(p.dataset.panel === key)),
+      );
+      root.querySelectorAll<SVGTextElement>('text[data-key]').forEach((t) =>
+        t.classList.toggle('on', t.dataset.key === key),
+      );
+    };
+    root.querySelectorAll<HTMLElement>('[data-key]').forEach((el) =>
+      el.addEventListener('click', () => select(el.dataset.key!)),
+    );
+    const first = root.querySelector<HTMLElement>('[role="tab"]');
+    if (first) select(first.dataset.key!);
+  });
+</script>
+
+<style>
+  .hex { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: start; }
+  .chart { margin: 0; }
+  svg { width: 100%; height: auto; overflow: visible; }
+  .ring { fill: none; stroke: var(--line); stroke-width: 1; }
+  .shape { fill: var(--fill); stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+  .dot { fill: var(--accent); }
+  .label { fill: var(--muted); font-size: 15px; font-weight: 500; cursor: pointer; }
+  .label .lv { fill: var(--accent); font-weight: 700; }
+  .label.on { fill: var(--ink); font-weight: 700; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tabs button {
+    font: inherit; font-size: 0.88rem; cursor: pointer;
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+  }
+  .tabs button[aria-selected='true'] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .hex:not(.js) .tabs { display: none; }
+  .hex.js .panel[data-active='false'] { display: none; }
+  .hex:not(.js) .panel { margin-bottom: 12px; }
+  .panel h3 { margin: 0 0 4px; }
+  .panel-lv { margin: 0; color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+  .panel-summary { margin: 0 0 8px; color: var(--muted); }
+  .panel ul { padding-left: 1.1em; margin: 0 0 10px; }
+  .panel-next, .panel-cases { font-size: 0.88rem; color: var(--muted); margin: 4px 0 0; }
+  .panel-cases a { margin-right: 8px; }
+  .rubric { margin-top: 20px; color: var(--muted); font-size: 0.92rem; }
+  .rubric summary { cursor: pointer; }
+  .rubric table { border-collapse: collapse; margin-top: 8px; }
+  .rubric td, .rubric th { border-bottom: 1px solid var(--line); padding: 4px 14px 4px 0; text-align: left; }
+  @media (max-width: 760px) {
+    .hex { grid-template-columns: 1fr; gap: 8px; }
+    .label { font-size: 17px; }
+  }
+</style>

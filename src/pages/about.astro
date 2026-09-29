@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+
+const timeline = [
+  { period: '현재', org: '특허 AI 서비스 기업', role: 'Product Owner', body: '특허 검색·작성 AI 서비스의 방향·우선순위·실행 총괄, 사내 AX 파이프라인 구축' },
+  { period: '2021.03 – 2024.11', org: '(주)아이알엠', role: 'Product Manager', body: '의료영상 SaaS 운영, 미국 MVP, 제품 패키징, 고객 제안·계약' },
+  { period: '2020.03 – 2020.06', org: '(주)바이랩', role: 'Clinical Operation Intern', body: '의료기기 임상시험 파일럿·데이터 검증 보조' },
+];
+const credentials = [
+  ['수상', '고용노동부 장관상 · K-디지털 트레이닝 해커톤', '2025.09'],
+  ['자격', '정보처리기사', '2025.06'],
+  ['자격', 'AWS Solutions Architect – Associate', '2025.05'],
+  ['자격', 'SQL 개발자(SQLD)', '2024.06'],
+  ['교육', 'AWS×성균관대 바이오헬스케어 AI 아카데미', '2025.03 – 2025.09'],
+  ['학력', '울산대학교 의공학', '2016.03 – 2021.02'],
+];
+---
+<Base title="About" description="경력 타임라인과 자격">
+  <div class="wrap about">
+    <p class="eyebrow">ABOUT</p>
+    <h1>경력</h1>
+    <ol class="timeline">
+      {timeline.map((t) => (
+        <li>
+          <small>{t.period}</small>
+          <h3>{t.org} · {t.role}</h3>
+          <p>{t.body}</p>
+        </li>
+      ))}
+    </ol>
+    <h2>자격·수상·학력</h2>
+    <table>
+      <tbody>
+        {credentials.map(([k, v, d]) => <tr><td>{k}</td><td>{v}</td><td>{d}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+</Base>
+
+<style>
+  .about { max-width: 760px; padding-top: 48px; padding-bottom: 80px; }
+  .timeline { list-style: none; padding: 0; border-left: 2px solid var(--line); }
+  .timeline li { padding: 0 0 24px 20px; position: relative; }
+  .timeline li::before { content: ''; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-soft); }
+  .timeline h3 { margin: 2px 0 4px; font-size: 1.1rem; }
+  .timeline p, .timeline small { margin: 0; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  td:last-child { color: var(--muted); white-space: nowrap; font-size: 0.9rem; }
+</style>
