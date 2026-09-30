@@ -21,7 +21,7 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
         <a class="btn" href="#work">사례 보기</a>
       </div>
     </div>
-    <img class="avatar" src="/profile.png" alt="초록색 도마뱀 캐릭터 프로필 이미지" width="260" height="260" />
+    <img class="avatar" src={site.photo} alt={site.photoAlt} width="440" height="440" />
   </section>
 
   <section id="stats" class="section">
@@ -98,10 +98,10 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
 
 <style>
   .hero { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding-top: 72px; padding-bottom: 72px; }
-  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 18px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.025em; margin: 0 0 18px; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .lead { font-size: 1.12rem; color: var(--muted); max-width: 34em; }
-  .avatar { width: 220px; height: 220px; border-radius: 16px; background: var(--accent-soft); border: 1px solid var(--line); }
+  .avatar { width: 220px; height: 220px; object-fit: cover; object-position: center top; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
   .cta { display: flex; gap: 10px; margin-top: 24px; }
   .btn { padding: 11px 20px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
   .btn:hover { border-color: var(--ink); }
@@ -113,7 +113,7 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
   .headline { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .headline li { display: flex; flex-direction: column; }
   .headline li { border-top: 3px solid var(--accent-strong); }
-  .headline strong { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+  .headline strong { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
   .headline span { font-weight: 600; }
   .headline small { color: var(--muted); }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
@@ -124,7 +124,7 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
   .case small { color: var(--muted); }
   .steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: 12px; }
   .steps li { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 18px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
-  .steps li::before { content: '0' counter(step); grid-row: span 2; font-weight: 800; color: var(--accent-strong); font-size: 1.1rem; }
+  .steps li::before { content: '0' counter(step); grid-row: span 2; font-weight: 700; color: var(--accent-strong); font-size: 1.1rem; }
   .steps strong { color: var(--ink); }
   @media (max-width: 760px) {
     .hero { grid-template-columns: 1fr; padding-top: 40px; }
