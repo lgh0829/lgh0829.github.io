@@ -10,15 +10,26 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
 <Base>
   <section class="wrap hero">
     <div>
-      <p class="eyebrow">{site.name}</p>
+      <p class="eyebrow">{site.name} · {site.domains}</p>
       <h1>무엇을 만들지보다<br /><em>어떤 문제인지</em> 먼저 묻습니다</h1>
       <p class="lead">
-        AI를 도입해도 생산성이 오르지 않던 원인을 구현 속도가 아니라 사람 사이의 핸드오프에서 찾았습니다.
-        헬스케어와 특허, 두 전문 산업에서 문제를 먼저 정의하고 그 답을 제품과 사업 성과로 완성해 왔습니다.
+        AI를 도입해도 속도가 나지 않던 이유를 구현이 아닌 사람 사이의 핸드오프에서 찾았고,
+        기획을 AI가 바로 실행하는 형태로 바꿨습니다.
+        헬스케어와 특허, 두 전문 산업에서 문제를 정의하고 그 답을 제품과 사업 성과로 완성해 왔습니다.
       </p>
+      <ul class="headline">
+        {headline.map((h) => (
+          <li>
+            <strong>{h.value}</strong>
+            <span>{h.label}</span>
+            <small>{h.note}</small>
+          </li>
+        ))}
+      </ul>
       <div class="cta">
-        <a class="btn primary" href="#stats">역량 보기</a>
-        <a class="btn" href="#work">사례 보기</a>
+        <a class="btn primary" href="#work">사례 보기</a>
+        <a class="btn" href="#stats">역량 보기</a>
+        <a class="btn" href="#contact">연락하기</a>
       </div>
     </div>
     {site.photo
@@ -32,15 +43,6 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
       <h2>역량 육각형</h2>
       <p class="intro">여섯 가지 역량을 검증된 근거 기준으로 표시했습니다. 축을 누르면 근거와 관련 사례가 나옵니다.</p>
       <Hexagon />
-      <ul class="headline">
-        {headline.map((h) => (
-          <li class="card">
-            <strong>{h.value}</strong>
-            <span>{h.label}</span>
-            <small>{h.note}</small>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
@@ -104,7 +106,7 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
   .hero h1 em { font-style: normal; color: var(--accent); }
   .lead { font-size: 1.12rem; color: var(--muted); max-width: 34em; }
   .avatar { width: 220px; height: 220px; object-fit: cover; object-position: center top; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
-  .cta { display: flex; gap: 10px; margin-top: 24px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
   .btn { padding: 11px 20px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
   .btn:hover { border-color: var(--ink); }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
@@ -112,12 +114,12 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
   h2 { font-size: clamp(1.6rem, 3vw, 2rem); margin: 0 0 12px; }
   .intro { color: var(--muted); margin: 0 0 24px; }
   .narrow { max-width: 760px; }
-  .headline { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .headline { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 34em; }
   .headline li { display: flex; flex-direction: column; }
-  .headline li { border-top: 3px solid var(--accent-strong); }
-  .headline strong { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
-  .headline span { font-weight: 600; }
-  .headline small { color: var(--muted); }
+  .headline li { border-top: 3px solid var(--accent-strong); padding-top: 10px; }
+  .headline strong { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
+  .headline span { font-weight: 600; font-size: 0.9rem; }
+  .headline small { color: var(--muted); font-size: 0.8rem; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
   .grid h3 { margin: 6px 0 8px; font-size: 1.15rem; }
   .grid p { margin: 0 0 12px; color: var(--muted); font-size: 0.95rem; }
@@ -131,6 +133,8 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
   @media (max-width: 760px) {
     .hero { grid-template-columns: 1fr; padding-top: 40px; }
     .avatar { width: 120px; height: 120px; order: -1; }
-    .headline { grid-template-columns: 1fr; }
+    .headline { gap: 10px; }
+    .headline strong { font-size: 1.4rem; }
+    .headline span { font-size: 0.8rem; }
   }
 </style>
