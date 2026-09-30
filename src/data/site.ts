@@ -4,6 +4,10 @@ export const site = {
   title: '이금희 · Product Owner',
   description: '결정한 사람이 곧 실행자가 되게 만드는 PO. 헬스케어와 특허, 두 전문 산업에서 제품을 사업으로 완성해 왔습니다.',
   github: 'https://github.com/lgh0829',
+  // 프로필 사진: public/ 폴더에 파일을 넣고 경로를 바꾼다 (정사각형 권장, 440px 이상)
+  // 비워 두면 빈 사진 자리만 표시된다. 예: photo: '/profile.jpg'
+  photo: '',
+  photoAlt: '이금희 프로필 사진',
 };
 
 // 첫 화면 지표: '경력 서사와 성과 지표' 문서에서 두 출처가 일치한 수치만 사용
