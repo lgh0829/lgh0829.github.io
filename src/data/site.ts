@@ -2,7 +2,7 @@ export const site = {
   name: '이금희',
   role: 'Product Owner',
   title: '이금희 · Product Owner',
-  description: '결정한 사람이 곧 실행자가 되게 만드는 PO. 헬스케어와 특허, 두 전문 산업에서 제품을 사업으로 완성해 왔습니다.',
+  description: '무엇을 만들지보다 어떤 문제인지 먼저 묻는 PO. 헬스케어와 특허, 두 전문 산업에서 문제를 정의하고 제품을 사업으로 완성해 왔습니다.',
   github: 'https://github.com/lgh0829',
   // 프로필 사진: public/ 폴더에 파일을 넣고 경로를 바꾼다 (정사각형 권장, 440px 이상)
   // 비워 두면 빈 사진 자리만 표시된다. 예: photo: '/profile.jpg'
