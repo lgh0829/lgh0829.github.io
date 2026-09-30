@@ -21,7 +21,9 @@ const axesFor = (slug: string) => stats.filter((s) => s.cases.includes(slug));
         <a class="btn" href="#work">사례 보기</a>
       </div>
     </div>
-    <img class="avatar" src={site.photo} alt={site.photoAlt} width="440" height="440" />
+    {site.photo
+      ? <img class="avatar" src={site.photo} alt={site.photoAlt} width="440" height="440" />
+      : <div class="avatar" aria-hidden="true"></div>}
   </section>
 
   <section id="stats" class="section">
