@@ -111,23 +111,24 @@ const levelName = (lv: number) => levels.find((l) => l.lv === lv)?.name ?? '';
   .chart { margin: 0; }
   svg { width: 100%; height: auto; overflow: visible; }
   .ring { fill: none; stroke: var(--line); stroke-width: 1; }
-  .shape { fill: var(--fill); stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
-  .dot { fill: var(--accent); }
-  .label { fill: var(--muted); font-size: 15px; font-weight: 500; cursor: pointer; }
+  .shape { fill: var(--fill); stroke: var(--accent-strong); stroke-width: 2.5; stroke-linejoin: round; }
+  .dot { fill: var(--bg); stroke: var(--accent-strong); stroke-width: 2.5; }
+  .label { fill: var(--muted); font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font); }
   .label .lv { fill: var(--accent); font-weight: 700; }
   .label.on { fill: var(--ink); font-weight: 700; }
   .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
   .tabs button {
     font: inherit; font-size: 0.88rem; cursor: pointer;
     background: transparent; color: var(--muted);
-    border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+    border: 1px solid var(--line); border-radius: 6px; padding: 5px 12px; font-weight: 500;
   }
-  .tabs button[aria-selected='true'] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .tabs button[aria-selected='true'] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
   .hex:not(.js) .tabs { display: none; }
   .hex.js .panel[data-active='false'] { display: none; }
   .hex:not(.js) .panel { margin-bottom: 12px; }
   .panel h3 { margin: 0 0 4px; }
-  .panel-lv { margin: 0; color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+  .panel { border-left: 3px solid var(--accent-strong); }
+  .panel-lv { margin: 0; color: var(--accent); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
   .panel-summary { margin: 0 0 8px; color: var(--muted); }
   .panel ul { padding-left: 1.1em; margin: 0 0 10px; }
   .panel-next, .panel-cases { font-size: 0.88rem; color: var(--muted); margin: 4px 0 0; }
